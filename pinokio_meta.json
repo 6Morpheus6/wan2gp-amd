@@ -1,4 +1,13 @@
 {
-  "links": [],
+  "links": [
+    {
+      "title": "github",
+      "value": "https://github.com/https://github.com/6Morpheus6"
+    },
+    {
+      "title": "bitcoin",
+      "value": "1DdQdK4SfyJ7dZ64eiw2cPzsEigmbQ2CeW"
+    }
+  ],
   "posts": []
 }
