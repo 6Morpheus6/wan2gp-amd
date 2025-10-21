@@ -1,8 +1,8 @@
 const path = require('path')
 module.exports = {
   version: "3.7",
-  title: "wan2gp-amd",
-  description: "",
+  title: "WAN2GP - AMD",
+  description: "[AMD ONLY] Super Optimized Gradio UI for AI video creation for GPU poor machines (6GB+ VRAM). Supports Wan 2.1/2.2, Qwen, Hunyuan Video, LTX Video and Flux. (On Windows supported by 7900(XT), 7800(XT), 7600(XT), Phoenix, 9070(XT) and Strix Halo)",
   icon: "icon.png",
   menu: async (kernel, info) => {
     let installed = info.exists("app/env")
@@ -86,7 +86,6 @@ module.exports = {
           text: "<div><strong>Reset</strong><div>Revert to pre-install state</div></div>",
           href: "reset.js",
           confirm: "Are you sure you wish to reset the app?"
-
         }]
       }
     } else {
