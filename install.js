@@ -13,6 +13,9 @@ module.exports = {
       params: {
         uri: "torch.js",
         params: {
+          env: {
+            "UV_SKIP_WHEEL_FILENAME_CHECK": 1
+          },
           venv_python: "3.11",
           venv: "env",
           path: "app",
