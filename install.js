@@ -26,7 +26,7 @@ module.exports = {
         path: "app",
         message: [
           "uv pip install -r requirements.txt",
-          "uv pip install hf-xet"
+          "uv pip install hf-xet setuptools numpy==1.26.4"
         ]
       }
     },
