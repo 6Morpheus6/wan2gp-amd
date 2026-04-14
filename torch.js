@@ -1,6 +1,6 @@
 module.exports = {
   run: [
-    // windows amd gfx 103X (RDNA2)
+    // windows amd gfx 103X (RDNA 2)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX 6\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -13,7 +13,7 @@ module.exports = {
       },
       "next": null
     },
-    // windows amd gfx 110X (RDNA3)
+    // windows amd gfx 110X (RDNA 3)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX [78]\\d{3}|Radeon 7\\d0M|Radeon 8\\d0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
