@@ -5,6 +5,7 @@ module.exports = {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX 6\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
@@ -18,6 +19,7 @@ module.exports = {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX [78]\\d{3}|Radeon 7\\d0M|Radeon 8\\d0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
@@ -31,6 +33,7 @@ module.exports = {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1150|Ryzen AI Max/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
@@ -44,6 +47,7 @@ module.exports = {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|Radeon 8[89]0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
@@ -57,6 +61,7 @@ module.exports = {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX 9\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
@@ -70,6 +75,7 @@ module.exports = {
       "when": "{{platform === 'linux' && gpu === 'amd'}}",
       "method": "shell.run",
       "params": {
+        "bluefairy": "off",
         "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
         "venv": "{{args && args.venv ? args.venv : null}}",
         "path": "{{args && args.path ? args.path : '.'}}",
