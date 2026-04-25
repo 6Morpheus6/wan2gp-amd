@@ -1,6 +1,6 @@
 module.exports = {
   run: [
-    // windows amd gfx 103X (RDNA 2)
+    // 1. Spezifische Suche: RDNA 2 (6000er)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /6\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -14,7 +14,7 @@ module.exports = {
       },
       "next": null
     },
-    // windows amd gfx 110X (RDNA 3)
+    // 2. Spezifische Suche: RDNA 3 (7000/8000er)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /[78]\\d{3}|7\\d0M|8\\d0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -28,7 +28,7 @@ module.exports = {
       },
       "next": null
     },
-    // windows amd gfx 1150 (Strix Halo)
+    // 3. Spezifische Suche: Strix Halo (1150)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1150|Ryzen AI Max/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -42,7 +42,7 @@ module.exports = {
       },
       "next": null
     },
-    // windows amd gfx 1151 (Strix Point)
+    // 4. Spezifische Suche: Strix Point (1151)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|8[89]0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -56,7 +56,7 @@ module.exports = {
       },
       "next": null
     },
-    // windows amd gfx 120X (RDNA 4)
+    // 5. Spezifische Suche: RDNA 4 (9000er)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /9\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -70,7 +70,26 @@ module.exports = {
       },
       "next": null
     },
-    // linux rocm (amd)
+    // 6. DER JOKER / FALLBACK (für "unsichtbare" dGPUs oder iGPUs)
+    // Wenn Win32 + AMD, aber oben nichts gematcht hat: Installiere RDNA 3 Wheels (höchste Kompatibilität)
+    {
+      "when": "{{platform === 'win32' && gpu === 'amd'}}",
+      "method": "shell.run",
+      "params": {
+        "bluefairy": "off",
+        "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
+        "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
+        "venv": "{{args && args.venv ? args.venv : null}}",
+        "path": "{{args && args.path ? args.path : '.'}}",
+        "message": [
+          "uv pip install https://github.com/scottt/rocm-TheRock/releases/download/v6.5.0rc-pytorch-gfx110x/torch-2.7.0a0+rocm_git3f903c3-cp311-cp311-win_amd64.whl",
+          "uv pip install https://github.com/scottt/rocm-TheRock/releases/download/v6.5.0rc-pytorch-gfx110x/torchaudio-2.7.0a0+52638ef-cp311-cp311-win_amd64.whl",
+          "uv pip install https://github.com/scottt/rocm-TheRock/releases/download/v6.5.0rc-pytorch-gfx110x/torchvision-0.22.0+9eb57cd-cp311-cp311-win_amd64.whl"
+        ]
+      },
+      "next": null
+    },
+    // 7. Linux AMD
     {
       "when": "{{platform === 'linux' && gpu === 'amd'}}",
       "method": "shell.run",
