@@ -2,7 +2,7 @@ module.exports = {
   run: [
     // windows amd gfx 103X (RDNA 2)
     {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX 6\\d{3}/i.test(kernel.gpu_model)}}",
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /6\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
         "bluefairy": "off",
@@ -16,7 +16,7 @@ module.exports = {
     },
     // windows amd gfx 110X (RDNA 3)
     {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX [78]\\d{3}|Radeon 7\\d0M|Radeon 8\\d0M/i.test(kernel.gpu_model)}}",
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /[78]\\d{3}|7\\d0M|8\\d0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
         "bluefairy": "off",
@@ -44,7 +44,7 @@ module.exports = {
     },
     // windows amd gfx 1151 (Strix Point)
     {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|Radeon 8[89]0M/i.test(kernel.gpu_model)}}",
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|8[89]0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
         "bluefairy": "off",
@@ -58,7 +58,7 @@ module.exports = {
     },
     // windows amd gfx 120X (RDNA 4)
     {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /RX 9\\d{3}/i.test(kernel.gpu_model)}}",
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /9\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
         "bluefairy": "off",
