@@ -10,6 +10,7 @@ module.exports = {
       install: info.running("install.js"),
       start: info.running("start.js"),
       update: info.running("update.js"),
+      debug: info.running("debug.js"),
       reset: info.running("reset.js"),
       link: info.running("link.js")
     }
@@ -49,6 +50,13 @@ module.exports = {
           text: "Updating",
           href: "update.js",
         }]
+      } else if (running.debug) {
+        return [{
+          default: true,
+          icon: 'fa-solid fa-terminal',
+          text: "Debugging",
+          href: "debug.js",
+        }]
       } else if (running.reset) {
         return [{
           default: true,
@@ -77,6 +85,10 @@ module.exports = {
           icon: "fa-solid fa-plug",
           text: "Install",
           href: "install.js",
+        }, {
+          icon: "fa-solid fa-plug",
+          text: "Debug",
+          href: "debug.js",
         }, {
           icon: "fa-solid fa-file-zipper",
           text: "<div><strong>Save Disk Space</strong><div>Deduplicates redundant library files</div></div>",
