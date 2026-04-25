@@ -9,7 +9,9 @@ module.exports = {
           "echo 'Platform: {{platform}}'",
           "echo 'Detected GPU Type: {{gpu}}'",
           "echo 'GPU Model String: {{kernel.gpu_model}}'",
-          "echo '-------------------------'"
+          "echo '-------------------------------------------'",
+          "echo 'Please show this message in Pinokio-support'",
+          "echo '-------------------------------------------'"
         ]
       }
     },
