@@ -1,6 +1,6 @@
 module.exports = {
   run: [
-    // 1. Spezifische Suche: RDNA 2 (6000er)
+    // RDNA 2 (6000s)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /6\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -14,7 +14,7 @@ module.exports = {
       },
       "next": null
     },
-    // 2. Spezifische Suche: RDNA 3 (7000/8000er)
+    // RDNA 3 (7000/8000s)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /[78]\\d{3}|7\\d0M|8\\d0M/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -28,23 +28,9 @@ module.exports = {
       },
       "next": null
     },
-    // 3. Spezifische Suche: Strix Halo (1150)
+    // Strix Halo (GFX 1151)
     {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1150|Ryzen AI Max/i.test(kernel.gpu_model)}}",
-      "method": "shell.run",
-      "params": {
-        "bluefairy": "off",
-        "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
-        "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
-        "venv": "{{args && args.venv ? args.venv : null}}",
-        "path": "{{args && args.path ? args.path : '.'}}",
-        "message": "uv pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2-staging/gfx1150"
-      },
-      "next": null
-    },
-    // 4. Spezifische Suche: Strix Point (1151)
-    {
-      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|8[89]0M/i.test(kernel.gpu_model)}}",
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1151|Ryzen AI Max|8060/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
       "params": {
         "bluefairy": "off",
@@ -56,7 +42,21 @@ module.exports = {
       },
       "next": null
     },
-    // 5. Spezifische Suche: RDNA 4 (9000er)
+    // Strix Point (GFX 1150)
+    {
+      "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /gfx1150|8[89]0M/i.test(kernel.gpu_model)}}",
+      "method": "shell.run",
+      "params": {
+        "bluefairy": "off",
+        "env": { "UV_SKIP_WHEEL_FILENAME_CHECK": "1" },
+        "venv_python": "{{args && args.venv_python ? args.venv_python : null}}",
+        "venv": "{{args && args.venv ? args.venv : null}}",
+        "path": "{{args && args.path ? args.path : '.'}}",
+        "message": "uv pip install --pre torch torchvision torchaudio --index-url https://rocm.nightlies.amd.com/v2-staging/gfx1150"
+      },
+      "next": null
+    },
+    // RDNA 4 (9000s)
     {
       "when": "{{platform === 'win32' && gpu === 'amd' && kernel.gpu_model && /9\\d{3}/i.test(kernel.gpu_model)}}",
       "method": "shell.run",
@@ -70,8 +70,7 @@ module.exports = {
       },
       "next": null
     },
-    // 6. DER JOKER / FALLBACK (für "unsichtbare" dGPUs oder iGPUs)
-    // Wenn Win32 + AMD, aber oben nichts gematcht hat: Installiere RDNA 3 Wheels (höchste Kompatibilität)
+    // iGPU Fallback
     {
       "when": "{{platform === 'win32' && gpu === 'amd'}}",
       "method": "shell.run",
