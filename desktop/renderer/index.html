@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wan2GP AMD</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">W</div>
+          <div>
+            <h1>Wan2GP AMD</h1>
+            <p>Desktop Control</p>
+          </div>
+        </div>
+        <nav class="nav-list" aria-label="Main navigation">
+          <button class="nav-item active" data-view="web" data-target="webSection"><span data-icon="globe"></span>Web UI</button>
+          <button class="nav-item" data-view="control" data-target="controlSection"><span data-icon="home"></span>Quick Job</button>
+          <button class="nav-item" data-view="models" data-target="modelsSection"><span data-icon="box"></span>Models</button>
+          <button class="nav-item" data-view="jobs" data-target="outputsSection"><span data-icon="list"></span>Outputs</button>
+          <button class="nav-item" data-view="settings" data-target="settingsSection"><span data-icon="settings"></span>Settings</button>
+        </nav>
+        <div class="sidebar-status">
+          <span class="dot ready"></span>
+          <span id="sideStatus">Environment Ready</span>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="status-strip" aria-label="System status">
+          <article class="status-card">
+            <span data-icon="server"></span>
+            <div>
+              <strong>Git Runtime</strong>
+              <span id="serverUrl">C:\Dev\wan2gp-amd\app</span>
+            </div>
+          </article>
+          <article class="status-card">
+            <span data-icon="gpu"></span>
+            <div>
+              <strong>GPU</strong>
+              <span id="gpuName">Detecting...</span>
+            </div>
+          </article>
+          <article class="status-card">
+            <span class="check-icon">OK</span>
+            <div>
+              <strong>Environment</strong>
+              <span id="envStatus">Checking...</span>
+            </div>
+          </article>
+          <article class="status-card">
+            <span data-icon="globe"></span>
+            <div>
+              <strong>Port</strong>
+              <span id="portStatus">7860</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="web-shell" id="webSection">
+          <article class="panel web-panel">
+            <div class="panel-heading web-heading">
+              <div>
+                <h2><span data-icon="globe"></span>WanGP Web UI</h2>
+                <span id="webUiStatus">Start the local server to use every model, preset, plugin, and configuration.</span>
+              </div>
+              <div class="web-actions">
+                <button class="secondary-button compact" id="startServerBtn"><span data-icon="play"></span><span>Start</span></button>
+                <button class="secondary-button compact" id="stopServerBtn"><span data-icon="stop"></span><span>Stop</span></button>
+                <button class="secondary-button compact" id="reloadWebBtn"><span data-icon="refresh"></span><span>Reload</span></button>
+                <button class="secondary-button compact" id="clearQueueBtn"><span data-icon="list"></span><span>Clear Saved Queue</span></button>
+                <button class="primary-button compact" id="openBrowserBtn"><span data-icon="external"></span><span>Open</span></button>
+              </div>
+            </div>
+            <div class="web-frame-wrap">
+              <webview id="webview" src="about:blank" partition="persist:wangp-web-ui" allowpopups></webview>
+              <div class="web-empty" id="webEmpty">
+                <strong>WanGP is ready to embed here.</strong>
+                <span>Use Start to launch the local server, or Reload if it is already running at localhost:7860.</span>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="main-grid section-hidden" id="controlSection">
+          <article class="panel server-panel">
+            <div class="panel-heading">
+              <h2>Generator Job</h2>
+              <button class="icon-button" id="refreshBtn" title="Refresh status"><span data-icon="refresh"></span></button>
+            </div>
+            <div class="server-content">
+              <div class="server-details">
+                <dl>
+                  <div>
+                    <dt>Status</dt>
+                    <dd><span class="badge" id="runBadge">Stopped</span></dd>
+                  </div>
+                  <div>
+                    <dt>Uptime</dt>
+                    <dd id="uptime">--:--:--</dd>
+                  </div>
+                  <div>
+                    <dt>Process ID</dt>
+                    <dd id="pid">Not running</dd>
+                  </div>
+                  <div>
+                    <dt>Command</dt>
+                    <dd><code>python wgp.py --process</code></dd>
+                  </div>
+                </dl>
+                <div class="action-row">
+                  <button class="secondary-button" id="startStopBtn"><span data-icon="stop"></span><span>Cancel Job</span></button>
+                  <button class="primary-button" id="openUiBtn"><span data-icon="folder"></span><span>Open Outputs</span></button>
+                </div>
+              </div>
+              <div class="terminal" id="terminal" aria-label="Server log">
+                <p><span>ready</span> Waiting for generator output...</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel quick-panel">
+            <div class="panel-heading">
+              <h2><span data-icon="bolt"></span>Quick Generate</h2>
+              <span id="promptCount">0 / 2000</span>
+            </div>
+            <label class="field full">
+              <span>Prompt</span>
+              <textarea id="prompt" maxlength="2000" placeholder="Describe the video you want to generate..."></textarea>
+            </label>
+            <div class="form-grid">
+              <label class="field">
+                <span>Mode</span>
+                <select id="mode">
+                  <option>Text to Video</option>
+                  <option>Image to Video</option>
+                  <option>Text to Image</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Model</span>
+                <select id="model">
+                  <option value="t2v_sf">Wan2.1 T2V Lightning 14B</option>
+                  <option value="t2v_1.3B">Wan2.1 T2V 1.3B</option>
+                  <option value="t2v">Wan2.1 T2V 14B</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Resolution</span>
+                <select id="resolution">
+                  <option value="832x480">832x480</option>
+                  <option value="640x360">640x360</option>
+                  <option value="1024x576">1024x576</option>
+                  <option value="1280x720">1280x720</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Steps</span>
+                <input id="steps" type="number" min="1" max="80" value="8" />
+              </label>
+              <label class="field">
+                <span>Seed</span>
+                <input id="seed" type="number" value="-1" />
+              </label>
+            </div>
+            <label class="field full">
+              <span>Output Folder</span>
+              <div class="folder-row">
+                <input id="outputFolder" readonly />
+                <button class="icon-button" id="folderBtn" title="Open output folder"><span data-icon="folder"></span></button>
+              </div>
+            </label>
+            <div class="button-grid">
+              <button class="secondary-button" id="validateBtn"><span data-icon="check"></span><span>Validate Prompt</span></button>
+              <button class="primary-button" id="copyOpenBtn"><span data-icon="play"></span><span>Generate</span></button>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel models-panel" id="modelsSection">
+          <div class="panel-heading">
+            <h2>Model Presets</h2>
+            <span>Direct Wan2GP model IDs</span>
+          </div>
+          <div class="model-list">
+            <button class="model-card selected" data-model="t2v_sf" data-steps="4" data-resolution="832x480">
+              <strong>Wan2.1 T2V Lightning 14B</strong>
+              <span>Fast validation preset. Starts with 4-8 steps.</span>
+            </button>
+            <button class="model-card" data-model="t2v_1.3B" data-steps="8" data-resolution="832x480">
+              <strong>Wan2.1 T2V 1.3B</strong>
+              <span>Smaller base model option for lighter testing.</span>
+            </button>
+            <button class="model-card" data-model="t2v" data-steps="20" data-resolution="832x480">
+              <strong>Wan2.1 T2V 14B</strong>
+              <span>Full text-to-video model. Heavier and slower.</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="panel outputs-panel" id="outputsSection">
+          <div class="panel-heading">
+            <h2>Recent Outputs</h2>
+            <button class="secondary-button compact" id="refreshOutputsBtn"><span data-icon="refresh"></span>Refresh</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Modified</th>
+                  <th>Size</th>
+                  <th>Path</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="outputsBody">
+                <tr><td colspan="6" class="empty">No outputs found yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel settings-panel" id="settingsSection">
+          <div class="panel-heading">
+            <h2>Install & Updates</h2>
+            <span id="updateMessage">Ready</span>
+          </div>
+          <div class="settings-grid">
+            <label class="field full">
+              <span>Wan2GP AMD Folder</span>
+              <div class="folder-row">
+                <input id="repoRoot" readonly />
+                <button class="secondary-button compact" id="chooseRepoBtn">Change</button>
+              </div>
+            </label>
+            <div class="update-actions">
+              <button class="secondary-button" id="updateLocalBtn"><span data-icon="refresh"></span><span>Update Local Files</span></button>
+              <button class="secondary-button" id="checkAppUpdateBtn"><span data-icon="download"></span><span>Check App Update</span></button>
+              <button class="secondary-button" id="openRepoBtn"><span data-icon="folder"></span><span>Open Folder</span></button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

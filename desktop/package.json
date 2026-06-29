@@ -1,0 +1,64 @@
+{
+  "name": "wan2gp-amd-desktop",
+  "version": "0.2.3",
+  "private": true,
+  "description": "Desktop control center for the local Wan2GP AMD install.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "powershell -ExecutionPolicy Bypass -File ./build-installer.ps1"
+  },
+  "author": "Morpheus",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/6Morpheus6/wan2gp-amd.git"
+  },
+  "build": {
+    "appId": "com.morpheus.wan2gp-amd-desktop",
+    "productName": "Wan2GP AMD Desktop",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-${version}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Wan2GP AMD Desktop"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "6Morpheus6",
+        "repo": "wan2gp-amd"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.15.3"
+  }
+}

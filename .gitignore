@@ -1,2 +1,6 @@
 node_modules
 .DS_Store
+app/
+desktop/desktop-screenshot.png
+desktop/packaged-screenshot.png
+desktop/dist/
