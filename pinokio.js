@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  version: "3.7",
+  version: "8.0",
   title: "Wan2GP - AMD",
   description: "[AMD ONLY] Super Optimized Gradio UI for AI video creation for GPU poor machines (6GB+ VRAM). Supports Wan 2.1/2.2, Qwen, Hunyuan Video, LTX Video, Flux and more. (On Windows supported by all dedicated AMD GPUs from RDNA 2 - RDNA 4)",
   icon: "icon.png",
