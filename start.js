@@ -11,7 +11,7 @@ module.exports = {
           "python wgp.py",
         ],
         on: [{
-          "event": "/http:\/\/\\S+/",
+          "event": "/http:\/\/[0-9.:]+/",
           "done": true
         }, {
           "event": "/errno/i",
