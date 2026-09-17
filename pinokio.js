@@ -31,6 +31,11 @@ module.exports = {
             text: "Open Web UI",
             href: local.url,
           }, {
+            default: true,
+            icon: "fa-solid fa-robot",
+            text: "Open Deepy",
+            href: local.url + "/deepy/",
+          }, {
             icon: 'fa-solid fa-terminal',
             text: "Terminal",
             href: "start.js",

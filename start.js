@@ -1,32 +1,35 @@
-module.exports = {
-  daemon: true,
-  run: [
-    {
-      method: "shell.run",
-      params: {
-        venv: "env",
-        env: { },
-        path: "app",
-        message: [
-          "python wgp.py",
-        ],
-        on: [{
-          "event": "/http:\/\/[0-9.:]+/",
-          "done": true
-        }, {
-          "event": "/errno/i",
-          "break": false
-        }, {
-          "event": "/error:/i",
-          "break": false
-        }]
-      }
+module.exports = async (kernel) => {
+  let port = await kernel.port()
+  return {
+    requires: {
+      bundle: "ai",
     },
-    {
-      method: "local.set",
-      params: {
-        url: "{{input.event[0]}}"
+    daemon: true,
+    run: [
+      {
+        method: "shell.run",
+        params: {
+          venv: "venv",
+          env: {
+            SERVER_NAME: "127.0.0.1",
+            SERVER_PORT: port
+          },
+          path: "app",
+          message: [
+            "python wgp.py --multiple-images --advanced"
+          ],
+          on: [{
+            "event": "/http:\/\/[0-9.:]+/",   
+            "done": true
+          }]
+        }
+      },
+      {
+        method: "local.set",
+        params: {
+          url: "{{input.event[0]}}"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
