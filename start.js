@@ -12,7 +12,8 @@ module.exports = async (kernel) => {
           venv: "env",
           env: {
             SERVER_NAME: "127.0.0.1",
-            SERVER_PORT: port
+            SERVER_PORT: port,
+            MIOPEN_FIND_MODE: "2"
           },
           path: "app",
           message: [
